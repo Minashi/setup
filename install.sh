@@ -37,3 +37,5 @@ echo "Important Notes:"
 echo "Import Bookmarks..."
 echo "Install Burp Pro..."
 echo "Done"
+
+rm -rf ./setup
