@@ -35,6 +35,7 @@ echo "Important Notes:"
 echo "Import Bookmarks..."
 echo "Set Infinite Scrollback..."
 echo "Set Wallpaper..."
+echo "Set Host-Shared Folder..."
 echo "Install Burp Pro..."
 echo "Done"
 
