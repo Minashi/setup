@@ -27,6 +27,11 @@ espanso service register
 espanso start
 cp ~/setup/dots/base.yml ~/.config/espanso/match/base.yml
 
+echo "Setting up home"
+mkdir ~/vpn
+mkdir ~/vpn/htb
+mkdir ~/vpn/os
+
 echo "Important Notes:"
 echo "Import Bookmarks..."
 echo "Install Burp Pro..."
