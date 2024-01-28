@@ -12,7 +12,7 @@ sudo gem install evil-winrm
 
 echo "Installing bloodhound"
 sleep 1
-systemctl enable neo4j
+sudo neo4j start
 curl -L "https://github.com/BloodHoundAD/BloodHound/releases/download/v4.3.1/BloodHound-linux-x64.zip" --output /tmp/bloodhound.zip
 sudo unzip /tmp/bloodhound.zip -d /opt
 
