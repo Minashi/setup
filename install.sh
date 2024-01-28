@@ -1,3 +1,5 @@
+rm -rf Documents Downloads Music Pictures Public Templates Videos
+
 echo "Kali VM Setup Script"
 echo "Be ready to enter root password if needed..."
 sleep 2
@@ -27,10 +29,9 @@ espanso service register
 espanso start
 cp ~/setup/dots/base.yml ~/.config/espanso/match/base.yml
 
-echo "Setting up home"
-mkdir ~/vpn
-mkdir ~/vpn/htb
-mkdir ~/vpn/os
+mkdir /opt/vpn
+mkdir /opt/vpn/htb
+mkdir /opt/vpn/os
 
 echo "Important Notes:"
 echo "Import Bookmarks..."
