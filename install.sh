@@ -29,12 +29,12 @@ espanso service register
 espanso start
 cp ~/setup/dots/base.yml ~/.config/espanso/match/base.yml
 
-mkdir /opt/vpn
-mkdir /opt/vpn/htb
-mkdir /opt/vpn/os
+sudo mkdir /opt/vpn && sudo mkdir /opt/vpn/htb && sudo mkdir /opt/vpn/os
 
 echo "Important Notes:"
 echo "Import Bookmarks..."
+echo "Set Infinite Scrollback..."
+echo "Set Wallpaper..."
 echo "Install Burp Pro..."
 echo "Done"
 
