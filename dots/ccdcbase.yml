@@ -26,17 +26,21 @@ matches:
       :cron 		- Check for malicious jobs
       :bashrc 	- Check for bashrc persistance
 
-# script repo and order to run them
-
+      TROLLING
+      :train - sl all in /dev/pts :)
+      :ptspam - Spam urandum to 
 
 # SETUP            
   - trigger: ":setup"                  
     replace : |
-      sudo apt install -y net-tools htop &
+      sudo apt install -y git net-tools htop &
       sudo apt install ufw &
 
   - trigger: ":cleanusers"
-    replace: for user in $(awk -F':' '{ if ($1 != "seccdc_black" && $1 != "ubuntu" && $3 >= 1000) print $1 }' /etc/passwd); do sudo userdel -r $user; done                                                                           
+    replace: for user in $(awk -F':' '{ if ($1 != "seccdc_black" && $1 != "ubuntu" && $3 >= 1000) print $1 }' /etc/passwd); do sudo userdel -r $user; done 
+
+# script repo and order to run them
+
 
 # DEFENSE
 
