@@ -9,24 +9,25 @@ matches:
 # HELP
   - trigger: ":help"
     replace: |
-      "SETUP
-      :setup - Install dependencies
-      :cleanusers - Delete all but scorechecker
+      SETUP
+      :setup 		- Install dependencies
+      :cleanusers 	- Delete all but seccdc_black
 
       DEFENSE
-      :ps - Check for shell processes
-      :kill - kill shortcut
-      :pkill - pkill shortcut
+      :ps 		- Check for shell processes
+      :kill 		- kill shortcut
+      :pkill 		- pkill shortcut
 
       PERSISTANCE
-      :users - Check users with bash/sh
-      :sshconfig - Verify SSH Config
-      :ftpconfig - Verify FTP Config
-      :suid - Check for malicious SUIDs
-      :cron - Check for malicious jobs
-      :bashrc - Check for bashrc persistance"
+      :users 		- Check users with bash/sh
+      :sshconfig 	- Verify SSH Config
+      :ftpconfig 	- Verify FTP Config
+      :suid 		- Check for malicious SUIDs
+      :cron 		- Check for malicious jobs
+      :bashrc 	- Check for bashrc persistance
 
 # script repo and order to run them
+
 
 # SETUP            
   - trigger: ":setup"                  
