@@ -5,21 +5,28 @@
 # You can use this file to define the base matches (aka snippets)
 # that will be available in every application when using espanso.
 
-global_vars:
-  - name: "IP"
-    type: "shell"
-    params:
-      cmd: "ip a | grep -q tun0 && hostname -I | awk '{print $(NF-0)}' || hostname -I | awk '{print $1}'"
-
-  - name: "ssh_key"
-    type: "shell"
-    params:
-      cmd: "cat /home/kali/.ssh/id_rsa.pub"
-
 matches:
-# QOL
-  - trigger: ":ip"
-    replace: "{{IP}}"
+# HELP
+  - trigger: ":help"
+    replace: |
+      "SETUP
+      :setup - Install dependencies
+      :cleanusers - Delete all but scorechecker
+
+      DEFENSE
+      :ps - Check for shell processes
+      :kill - kill shortcut
+      :pkill - pkill shortcut
+
+      PERSISTANCE
+      :users - Check users with bash/sh
+      :sshconfig - Verify SSH Config
+      :ftpconfig - Verify FTP Config
+      :suid - Check for malicious SUIDs
+      :cron - Check for malicious jobs
+      :bashrc - Check for bashrc persistance"
+
+# script repo and order to run them
 
 # SETUP            
   - trigger: ":setup"                  
@@ -28,7 +35,7 @@ matches:
       sudo apt install ufw &
 
   - trigger: ":cleanusers"
-    replace: for user in $(awk -F':' '{ if ($1 != "scoreuser" && $1 != "user2" && $3 >= 1000) print $1 }' /etc/passwd); do sudo userdel -r $user; done                                                                           
+    replace: for user in $(awk -F':' '{ if ($1 != "seccdc_black" && $1 != "ubuntu" && $3 >= 1000) print $1 }' /etc/passwd); do sudo userdel -r $user; done                                                                           
 
 # DEFENSE
 
