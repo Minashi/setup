@@ -1,3 +1,8 @@
+if [ $(whoami) == "root" ]; then
+    echo "Script cannot be ran as root..."
+    exit 1
+fi
+
 rm -rf Documents Downloads Music Pictures Public Templates Videos
 
 echo "Kali VM Setup Script"
