@@ -21,6 +21,12 @@ sudo apt install -y python3-pip
 sudo apt install -y seclists curl dnsrecon enum4linux feroxbuster gobuster impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
 python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git
 
+# rustscan install
+echo "Installing rustscan"
+sleep 1
+wget https://github.com/RustScan/RustScan/releases/download/2.0.1/rustscan_2.0.1_amd64.deb
+sudo dpkg -i rustscan_2.0.1_amd64.deb
+
 sudo apt install -y feh imagemagick
 sudo apt install -y neo4j bloodhound
 sudo apt autoremove && sudo apt autoclean -y
