@@ -12,7 +12,16 @@ echo "Installing Heat"
 sleep 2
 sudo apt update && sudo apt dist-upgrade -y
 sudo apt install -y curl zsh terminator vim binutils gobuster seclists dirsearch
-sudo apt install -y feh python3-pip imagemagick
+
+# Autorecon dependency check and install
+echo "Installing autorecon"
+sleep 1
+sudo apt install -y python3
+sudo apt install -y python3-pip
+sudo apt install -y seclists curl dnsrecon enum4linux feroxbuster gobuster impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
+python3 -m pip install git+https://github.com/Tib3rius/AutoRecon.git
+
+sudo apt install -y feh imagemagick
 sudo apt install -y neo4j bloodhound
 sudo apt autoremove && sudo apt autoclean -y
 sudo gem install evil-winrm
