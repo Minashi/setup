@@ -66,7 +66,7 @@ matches:
 
 # ENUMERATION
   - trigger: ":nmap"
-    replace: sudo nmap -A -v -Pn -oN nmap --min-rate 10000 -p- 
+    replace: sudo nmap -A -v -Pn --min-rate 10000 -p- 
 
   - trigger: ":ping"
     replace: for i in {1..254} ;do (ping -c 1 0.0.0.$i | grep "bytes from" &) ;done
