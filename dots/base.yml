@@ -84,7 +84,7 @@ matches:
     replace: for /L %i in (1 1 254) do ping {{clipboard}}%i -n 1 -w 100 | find "Reply"
     
   - trigger: ":gobuster"
-    replace: "gobuster dir -w /usr/share/wordlists/dirb/common.txt -e php,txt,html -u http://{{clipboard}}"
+    replace: "gobuster dir -u http://{{clipboard}} -w /usr/share/wordlists/dirb/common.txt -e php,txt,html"
 
 # REVERSE SHELLS                                                                
   # LINUX
