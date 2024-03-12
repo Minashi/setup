@@ -11,7 +11,7 @@ sleep 2
 echo "Installing Heat"
 sleep 2
 sudo apt update && sudo apt dist-upgrade -y
-sudo apt install -y curl zsh terminator vim binutils gobuster seclists dirsearch
+sudo apt install -y curl zsh terminator vim binutils gobuster seclists dirsearch xclip
 
 # Autorecon dependency check and install
 echo "Installing autorecon"
