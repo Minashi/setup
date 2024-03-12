@@ -71,7 +71,7 @@ matches:
     replace: "sudo responder -I tun0"
     
   - trigger: ":nc"
-    replace: nc -nvlp 4444
+    replace: nc -nvlp 22
 
 # ENUMERATION
   - trigger: ":nmap"
