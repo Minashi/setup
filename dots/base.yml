@@ -24,6 +24,9 @@ matches:
 # QOL
   - trigger: ":ip"
     replace: "{{IP}}"
+
+  - trigger: ":clipboard"
+    replace: "{{clipboard}}"
                   
 # SETUP AND NMAP              
   - trigger: ":setup"                  
