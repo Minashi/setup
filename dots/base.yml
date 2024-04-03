@@ -206,3 +206,11 @@ matches:
 
   - trigger: ":bashrc"
     replace: echo "" && sudo find / -name '*bashrc' -exec grep -E '([0-9]{1,3}\.){3}[0-9]{1,3}|netcat|bash -i|/bin/bash|python|perl|ruby|wget|curl' {} \; -exec stat -c "%A %y %n" {} \;
+
+# WIFI
+
+  - trigger: ":airup"
+    replace: sudo airmon-ng start wlan0
+
+  - trigger: ":airodump"
+    replace: sudo airodump-ng wlan0mon -w ~/wifi/scan --manufacturer --wps --band abg
