@@ -214,3 +214,9 @@ matches:
 
   - trigger: ":airodump"
     replace: sudo airodump-ng wlan0mon -w ~/wifi/scan --manufacturer --wps --band abg
+
+  - trigger: ":hostname"
+    replace: hostnamectl set-hostname
+
+  - trigger: ":spoofmac"
+    replace: macchanger -A wlan0mon
